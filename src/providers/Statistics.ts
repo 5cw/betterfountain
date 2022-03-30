@@ -83,7 +83,7 @@ async function loadWebView(docuri: vscode.Uri, statspanel:vscode.WebviewPanel) {
 
     let extensionpath = vscode.extensions.getExtension("piersdeseilligny.betterfountain").extensionPath;
 
-    const cssDiskPath = vscode.Uri.file(path.join(extensionpath, 'node_modules', 'vscode-codicons', 'dist', 'codicon.css'));
+    const cssDiskPath = vscode.Uri.file(path.join(extensionpath, 'node_modules', '@vscode/codicons', 'dist', 'codicon.css'));
     const jsDiskPath = vscode.Uri.file(path.join(extensionpath, 'out', 'webviews', 'stats.bundle.js'));
 
     statspanel.webview.html = statsHtml.replace("$CODICON_CSS$", statspanel.webview.asWebviewUri(cssDiskPath).toString())

@@ -1,4 +1,4 @@
-import { default as VSCodeTelemetryReporter } from 'vscode-extension-telemetry';
+import { default as VSCodeTelemetryReporter } from '@vscode/extension-telemetry';
 import { getPackageInfo } from './utils';
 
 let reporter:VSCodeTelemetryReporter;

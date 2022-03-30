@@ -26,6 +26,7 @@ export class FountainConfig{
     print_dialogue_numbers:boolean;
     create_bookmarks:boolean;
     invisible_section_bookmarks:boolean;
+    section_formatting: string;
     synchronized_markup_and_preview:boolean;
     preview_theme:string;
     preview_texture:boolean;
@@ -108,6 +109,7 @@ export var getFountainConfig = function(docuri:vscode.Uri):FountainConfig{
         print_dialogue_numbers: pdfConfig.showDialogueNumbers,
         create_bookmarks: pdfConfig.createBookmarks,
         invisible_section_bookmarks: pdfConfig.invisibleSectionBookmarks,
+        section_formatting: pdfConfig.sectionFormatting,
         text_more: pdfConfig.textMORE,
         text_contd: pdfConfig.textCONTD,
         text_scene_continuation: pdfConfig.textSceneContinued,

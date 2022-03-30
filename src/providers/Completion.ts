@@ -1,10 +1,10 @@
 import * as vscode from "vscode";
 import { parsedDocuments } from "../extension";
 import { getCharactersWhoSpokeBeforeLast, addForceSymbolToCharacter } from "../utils";
-import username = require("username");
 import { titlePageDisplay } from "../afterwriting-parser";
 var fontnames: any[];
 const fontFinder = require('font-finder');
+//import { username } from "username";
 var userfullname: string;
 
 //Load fonts for autocomplete
@@ -15,7 +15,7 @@ var userfullname: string;
 
 //Get user's full name for author autocomplete
 (async () => {
-	userfullname = await username();
+	userfullname = require("os").userInfo().username;
 	if (userfullname.length > 0) {
 		userfullname = userfullname.charAt(0).toUpperCase() + userfullname.slice(1)
 	}

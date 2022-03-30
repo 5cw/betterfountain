@@ -6,14 +6,27 @@
 			"name": "Run Extension",
 			"type": "extensionHost",
 			"request": "launch",
+			"trace": true,
 			"runtimeExecutable": "${execPath}",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}"
+				"--extensionDevelopmentPath=${workspaceFolder}/src"
 			],
+			"runtimeArgs": ["run", "--inspect", "-A", "${workspaceFolder}/src/extension.ts"],
+			"sourceMaps": true,
 			"outFiles": [
 				"${workspaceFolder}/out/**/*.js"
 			],
-			"preLaunchTask": "npm: compile"
+			"protocol": "inspector",
+			"sourceMapPathOverrides": {
+				"${workspaceFolder}/src/*": "{workspaceFolder}/out/*"
+			},
+			"resolveSourceMapLocations": [
+				"${workspaceFolder}/out/**",
+				"!**/node_modules/**"
+			  ],			  
+			"preLaunchTask": "npm: compile",
+			"outputCapture": "std"
+			
 		},
 		{
 			"name": "Debug Jest Tests",

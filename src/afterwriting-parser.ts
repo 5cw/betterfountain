@@ -509,8 +509,9 @@ export var parse = function (original_script: string, cfg: any, generate_html: b
                     level.synopses.push({ synopsis: thistoken.text, line: thistoken.line })
                 }
             } else if (match = thistoken.text.match(regex.section)) {
+                let section_styling = config.section_formatting.replace(/[^*_]/, "");
                 thistoken.level = match[1].length;
-                thistoken.text = match[2];
+                thistoken.text = section_styling + match[2] + section_styling;
                 thistoken.type = "section";
                 let cobj: StructToken = new StructToken();
                 cobj.text = thistoken.text;
@@ -704,6 +705,15 @@ export var parse = function (original_script: string, cfg: any, generate_html: b
         //Generate html for script
         let current_index = 0;
         var isaction = false;
+        let section_alignment_char = cfg.section_formatting[0];
+        let section_alignment_word;
+        if(section_alignment_char == 'c'){
+            section_alignment_word = "center";
+        } else if (section_alignment_char == 'r') {
+            section_alignment_word = "right";
+        } else {
+            section_alignment_word = "left"
+        }
         while (current_index < result.tokens.length) {
             var current_token: token = result.tokens[current_index];
             if (current_token.text != "") {
@@ -783,7 +793,10 @@ export var parse = function (original_script: string, cfg: any, generate_html: b
                     case 'dialogue_end': html.push('</div> '); break;
                     case 'dual_dialogue_end': html.push('</div></div> '); break;
 
-                    case 'section': html.push('<p class="haseditorline section" id="sourceline_' + current_token.line + '" data-position=\"' + current_token.line + '\" data-depth=\"' + current_token.level + '\">' + current_token.text + '</p>'); break;
+                    case 'section':
+                        if (cfg.print_sections)
+                         html.push('<p class="haseditorline section ' + section_alignment_word + '" id="sourceline_' + current_token.line + '" data-position=\"' + current_token.line + '\" data-depth=\"' + current_token.level + '\">' + current_token.html + '</p>'); 
+                         break;
                     case 'synopsis': html.push('<p class="haseditorline synopsis" id="sourceline_' + current_token.line + '" >' + current_token.html + '</p>'); break;
                     case 'lyric': html.push('<p class="haseditorline lyric" id="sourceline_' + current_token.line + '">' + current_token.html + '</p>'); break;
 

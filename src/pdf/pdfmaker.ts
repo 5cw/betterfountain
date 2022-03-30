@@ -359,6 +359,8 @@ async function generate(doc: any, opts: any, lineStructs?: Map<number, lineStruc
         lines = parsed.lines,
         exportcfg = opts.exportconfig;
 
+    
+
     var title_token = get_title_page_token(parsed, 'title');
     var author_token = get_title_page_token(parsed, 'author');
     if (!author_token) {
@@ -598,6 +600,8 @@ async function generate(doc: any, opts: any, lineStructs?: Map<number, lineStruc
     let outlineDepth = 0;
     // let previousSectionDepth = 0;
 
+    let section_alignment = cfg.section_formatting[0];
+
     print_watermark();
     print_header_and_footer();
 
@@ -721,6 +725,12 @@ async function generate(doc: any, opts: any, lineStructs?: Map<number, lineStruc
                             oc.addItem(sectiontext);
                     }
                     if (!hasInvisibleSection) {
+                        var txt_length = sectiontext.replace(/\*/g, '').replace(/_/g, '').length;
+                        if (section_alignment == 'c') {
+                            feed = (print.page_width - txt_length * print.font_width) / 2;
+                        } else {
+                            feed = print.action.feed + print.action.max * print.font_width - txt_length * print.font_width;
+                        }
                         text = sectiontext;
                     }
                     outlineDepth = sectiontoken.level;
